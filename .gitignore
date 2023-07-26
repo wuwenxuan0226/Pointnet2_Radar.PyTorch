@@ -9,5 +9,7 @@ model/.DS_Store
 .DS_Store
 work_dirs/
 RadarScenes/
+APTIVRadar/
+APTIVRadar.py
 /.vscode/
 /seg_msg_radar/

@@ -67,4 +67,4 @@ python plot_prediction.py plot_prediction_radarscenes pointnet2_seg_msg_radar ./
 
 - [https://github.com/charlesq34/pointnet2](https://github.com/charlesq34/pointnet2)
 - [https://github.com/yanx27/Pointnet_Pointnet2_pytorch](https://github.com/yanx27/Pointnet_Pointnet2_pytorch)
-- [https://github.com/zhulf0804/Pointnet2.PyTorch](https://github.com/sshaoshuai/Pointnet2.PyTorch)
+- [https://github.com/zhulf0804/Pointnet2.PyTorch](https://github.com/zhulf0804/Pointnet2.PyTorch)
