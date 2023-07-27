@@ -176,7 +176,8 @@ class RadarScenes():
                 # if chosen_frames is not enough, it means the frame_index is the last frame in the file
                 # just use the data which number of self.combined_frame_num from the end of the file
                 if len(chosen_frames) < self.combined_frame_num:
-                    chosen_frames = frame_list[-(self.combined_frame_num+1):-1]
+                    chosen_frames = frame_list[-self.combined_frame_num:-1]
+                    chosen_frames.append(frame_list[-1])
                 # convert to int
                 chosen_frames = [int(ts) for ts in chosen_frames]
                 chosen_data = radar_data[np.isin(radar_data['timestamp'], chosen_frames)]
