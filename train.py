@@ -29,7 +29,7 @@ def train_one_epoch(train_loader, seg_classes, model, loss_func, optimizer, devi
         prediction = torch.max(prediction, dim=1)[1]
         predictions.append(prediction.cpu().detach().numpy())
         losses.append(loss.item())
-    iou, acc = compute_metrics(np.concatenate(predictions, axis=0), np.concatenate(labels, axis=0), seg_classes, pt)
+    iou, acc = compute_metrics(np.concatenate(predictions, axis=0), np.concatenate(labels, axis=0), seg_classes)
     return np.mean(losses), iou, acc
 
 
