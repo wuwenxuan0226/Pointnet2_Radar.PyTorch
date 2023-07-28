@@ -35,78 +35,10 @@ def rotate_point_cloud(pc):
     cosval = np.cos(rotation_angle)
     sinval = np.sin(rotation_angle)
     rotation_matrix = np.array([[cosval, 0, sinval],
-                                [0, 1, 0],
-                                [-sinval, 0, cosval]])
+                                [-sinval, 0, cosval],
+                                [0, 1, 0]])
     rotated_pc = np.dot(pc, rotation_matrix)
     return rotated_pc
-
-
-def rotate_point_cloud_with_normal(pc_normal):
-    rotation_angle = np.random.uniform() * 2 * np.pi
-    cosval = np.cos(rotation_angle)
-    sinval = np.sin(rotation_angle)
-    rotation_matrix = np.array([[cosval, 0, sinval],
-                                [0, 1, 0],
-                                [-sinval, 0, cosval]])
-
-    pc_normal[:,0:3] = np.dot(pc_normal[:, 0:3], rotation_matrix)
-    pc_normal[:,3:6] = np.dot(pc_normal[:, 3:6], rotation_matrix)
-    return pc_normal
-
-
-def rotate_perturbation_point_cloud_with_normal(pc_normal, angle_sigma=0.06, angle_clip=0.18):
-    angles = np.clip(angle_sigma*np.random.randn(3), -angle_clip, angle_clip)
-    Rx = np.array([[1,0,0],
-                   [0,np.cos(angles[0]),-np.sin(angles[0])],
-                   [0,np.sin(angles[0]),np.cos(angles[0])]])
-    Ry = np.array([[np.cos(angles[1]),0,np.sin(angles[1])],
-                   [0,1,0],
-                   [-np.sin(angles[1]),0,np.cos(angles[1])]])
-    Rz = np.array([[np.cos(angles[2]),-np.sin(angles[2]),0],
-                   [np.sin(angles[2]),np.cos(angles[2]),0],
-                   [0,0,1]])
-    R = np.dot(Rz, np.dot(Ry,Rx))
-    pc_normal[:,0:3] = np.dot(pc_normal[:, :3], R)
-    pc_normal[:,3:6] = np.dot(pc_normal[:, 3:], R)
-    return pc_normal
-
-
-def rotate_point_cloud_by_angle(pc, rotation_angle):
-    cosval = np.cos(rotation_angle)
-    sinval = np.sin(rotation_angle)
-    rotation_matrix = np.array([[cosval, 0, sinval],
-                                [0, 1, 0],
-                                [-sinval, 0, cosval]])
-    pc = np.dot(pc, rotation_matrix)
-    return pc
-
-
-def rotate_point_cloud_by_angle_with_normal(pc_normal, rotation_angle):
-    cosval = np.cos(rotation_angle)
-    sinval = np.sin(rotation_angle)
-    rotation_matrix = np.array([[cosval, 0, sinval],
-                                [0, 1, 0],
-                                [-sinval, 0, cosval]])
-    pc_normal[:, :3] = np.dot(pc_normal[:, :3], rotation_matrix)
-    pc_normal[:, 3:6] = np.dot(pc_normal[:, 3:6], rotation_matrix)
-    return pc_normal
-
-
-
-def rotate_perturbation_point_cloud(pc, angle_sigma=0.06, angle_clip=0.18):
-    angles = np.clip(angle_sigma*np.random.randn(3), -angle_clip, angle_clip)
-    Rx = np.array([[1,0,0],
-                   [0,np.cos(angles[0]),-np.sin(angles[0])],
-                   [0,np.sin(angles[0]),np.cos(angles[0])]])
-    Ry = np.array([[np.cos(angles[1]),0,np.sin(angles[1])],
-                   [0,1,0],
-                   [-np.sin(angles[1]),0,np.cos(angles[1])]])
-    Rz = np.array([[np.cos(angles[2]),-np.sin(angles[2]),0],
-                   [np.sin(angles[2]),np.cos(angles[2]),0],
-                   [0,0,1]])
-    R = np.dot(Rz, np.dot(Ry,Rx))
-    pc = np.dot(pc, R)
-    return pc
 
 
 def jitter_point_cloud(pc, sigma=0.01, clip=0.05):
@@ -124,12 +56,6 @@ def shift_point_cloud(pc, shift_range=0.1):
     return pc
 
 
-def random_scale_point_cloud(pc, scale_low=0.8, scale_high=1.25):
-    scale = np.random.uniform(scale_low, scale_high, 1)
-    pc *= scale
-    return pc
-
-
 def random_point_dropout(pc, max_dropout_ratio=0.875):
     dropout_ratio =  np.random.random()*max_dropout_ratio # 0~0.875
     drop_idx = np.where(np.random.random((pc.shape[0]))<=dropout_ratio)[0]
@@ -138,14 +64,12 @@ def random_point_dropout(pc, max_dropout_ratio=0.875):
     return pc
 
 
-def augment_pc(pc_normal):
-    rotated_pc_normal = rotate_point_cloud_with_normal(pc_normal)
-    rotated_pc_normal = rotate_perturbation_point_cloud_with_normal(rotated_pc_normal)
-    jittered_pc = random_scale_point_cloud(rotated_pc_normal[:, :3])
-    jittered_pc = shift_point_cloud(jittered_pc)
+def augment_pc(pc):
+    rotated_pc = rotate_point_cloud(pc[:, :3])
+    jittered_pc = shift_point_cloud(rotated_pc)
     jittered_pc = jitter_point_cloud(jittered_pc)
-    rotated_pc_normal[:, :3] = jittered_pc
-    return rotated_pc_normal
+    pc[:, :3] = jittered_pc
+    return pc
 
 
 if __name__ == '__main__':

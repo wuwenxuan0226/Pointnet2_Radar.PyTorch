@@ -11,7 +11,7 @@ from data.provider import augment_pc, pc_normalize, random_point_dropout, conver
 
 
 class RadarScenes():
-    def __init__(self, data_root, split, npoints, combined_frame_num, augment=False, dp=False, normalize=False):
+    def __init__(self, data_root, split, npoints, combined_frame_num, augment=True, dp=False, normalize=False):
         assert(split == 'train' or split == 'validation')
         self.npoints = npoints
         self.combined_frame_num = combined_frame_num
@@ -230,7 +230,7 @@ class RadarScenes():
 
 if __name__ == '__main__':
     # combined_frame_num is the number of frames combined into one frame for more points
-    radarscenes = RadarScenes(data_root='./data/RadarScenes', split='train', npoints=3072, combined_frame_num=28)
+    radarscenes = RadarScenes(data_root='./data/RadarScenes', split='train', npoints=3072, combined_frame_num=28, augment=True)
     print(radarscenes.__len__())
     print(radarscenes.__getitem__(0))
     print(radarscenes.get_index_position(4))
