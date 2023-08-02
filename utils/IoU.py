@@ -16,8 +16,8 @@ def compute_metrics(predictions, labels, seg_classes):
     class_iou = {}
     class_accuracy = {}
     confusion_matrix = np.zeros((len(seg_classes['Scenes']), len(seg_classes['Scenes'])), dtype=np.int32)
-    pred_mask_temp = np.empty((0, predictions.shape[1]), dtype=np.bool)
-    label_mask_temp = np.empty((0, labels.shape[1]), dtype=np.bool)
+    pred_mask_temp = np.empty((0, predictions.shape[1]))
+    label_mask_temp = np.empty((0, labels.shape[1]))
     for class_id in seg_classes['Scenes']:
         pred_mask = (predictions == class_id)
         label_mask = (labels == class_id)
