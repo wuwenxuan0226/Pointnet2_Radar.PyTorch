@@ -34,9 +34,9 @@ def rotate_point_cloud(pc):
     rotation_angle = np.random.uniform() * 2 * np.pi
     cosval = np.cos(rotation_angle)
     sinval = np.sin(rotation_angle)
-    rotation_matrix = np.array([[cosval, 0, sinval],
-                                [-sinval, 0, cosval],
-                                [0, 1, 0]])
+    rotation_matrix = np.array([[cosval, -sinval, 0],
+                                [sinval, cosval, 0],
+                                [0, 0, 1]])
     rotated_pc = np.dot(pc, rotation_matrix)
     return rotated_pc
 
