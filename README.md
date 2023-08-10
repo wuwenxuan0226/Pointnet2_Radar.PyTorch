@@ -52,8 +52,8 @@ eg.
 python plot_prediction.py plot_prediction_radarscenes pointnet2_seg_msg_radar ./data/RadarScenes seg_msg_radar/checkpoints/pointnet2_seg_24.pth 1 3072 6
 ```
 
-- **Confusion Metrics**: [Figure](https://www.semanticscholar.org/paper/Semantic-Segmentation-on-Radar-Point-Clouds-Schumann-Hahn/fdf0969efe50d8b6d425f52c23062a5269c6a1a8/figure/4)
-- Result in this project on validation set:
+- **Relative Confusion Metrics**: [Figure](https://www.semanticscholar.org/paper/Semantic-Segmentation-on-Radar-Point-Clouds-Schumann-Hahn/fdf0969efe50d8b6d425f52c23062a5269c6a1a8/figure/4)
+- Result in this project on train and validation set:
     |      |   Pred 1   |   Pred 2    |   Pred 3    |   Pred 4    |   Pred 5    |   Pred 6   |
     |:----:|:----------:|:-----------:|:-----------:|:-----------:|:-----------:|:----------:|
     | GT 1 |   82.4%    |    0.0%     |    0.2%     |    0.3%     |    4.0%     |   13.0%    |
@@ -62,6 +62,16 @@ python plot_prediction.py plot_prediction_radarscenes pointnet2_seg_msg_radar ./
     | GT 4 |    4.7%    |    0.9%     |    2.3%     |   81.6%     |    0.1%     |   10.5%    |
     | GT 5 |   13.3%    |    0.0%     |    0.1%     |    0.0%     |   72.0%     |   14.6%    |
     | GT 6 |    0.2%    |    0.0%     |    0.1%     |    0.0%     |    0.1%     |   99.6%    |
+- **Absolute Confusion Metrics**: [Figure](https://www.semanticscholar.org/paper/Semantic-Segmentation-on-Radar-Point-Clouds-Schumann-Hahn/fdf0969efe50d8b6d425f52c23062a5269c6a1a8/figure/5)
+- Result in this project on train and validation set:
+    |      |   Pred 1    |   Pred 2    |   Pred 3    |   Pred 4    |   Pred 5    |   Pred 6    |
+    |:----:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|
+    | GT 1 |   1122324   |      189    |     3320    |     4331    |    54487    |    177405   |
+    | GT 2 |      774    |    193427   |   101371    |     1911    |      78     |     74878   |
+    | GT 3 |     1524    |     56184   |   696963    |     1315    |      64     |     98521   |
+    | GT 4 |     9325    |      1714   |     4467    |   160967    |     144     |     20623   |
+    | GT 5 |    82866    |       14    |      501    |      308    |   448119    |     90838   |
+    | GT 6 |   146523    |     33514   |    77300    |     6805    |    72904    |   87854898  |
 
 ## Reference
 
